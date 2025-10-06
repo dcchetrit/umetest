@@ -1,0 +1,212 @@
+{
+  "common": {
+    "navigation": {
+      "dashboard": "Panel",
+      "guests": "Invitados",
+      "seating": "Disposición de mesas",
+      "tasks": "Tareas",
+      "budget": "Presupuesto",
+      "vendors": "Proveedores",
+      "settings": "Configuración"
+    },
+    "buttons": {
+      "save": "Guardar",
+      "cancel": "Cancelar",
+      "delete": "Eliminar",
+      "edit": "Editar",
+      "add": "Agregar",
+      "create": "Crear",
+      "update": "Actualizar",
+      "submit": "Enviar",
+      "back": "Atrás",
+      "next": "Siguiente",
+      "previous": "Anterior",
+      "export": "Exportar",
+      "import": "Importar",
+      "close": "Cerrar",
+      "confirm": "Confirmar"
+    },
+    "status": {
+      "loading": "Cargando...",
+      "saved": "Guardado exitosamente",
+      "error": "Ocurrió un error",
+      "success": "Éxito",
+      "pending": "Pendiente",
+      "completed": "Completado",
+      "in_progress": "En progreso",
+      "not_started": "No iniciado"
+    },
+    "forms": {
+      "required": "Este campo es requerido",
+      "invalid_email": "Por favor ingrese un email válido",
+      "invalid_phone": "Por favor ingrese un número de teléfono válido",
+      "password_min": "La contraseña debe tener al menos 6 caracteres",
+      "confirm_password": "Las contraseñas no coinciden",
+      "optional": "opcional"
+    }
+  },
+  "homepage": {
+    "title": "Plataforma de Gestión de Bodas",
+    "subtitle": "Planifica tu boda perfecta con nuestras herramientas de gestión integral",
+    "features": {
+      "dashboard": {
+        "title": "Panel",
+        "description": "Resumen de la planificación de tu boda"
+      },
+      "guests": {
+        "title": "Gestión de Invitados",
+        "description": "Gestiona tu lista de invitados y confirmaciones"
+      },
+      "rsvp": {
+        "title": "Sitio de Confirmación",
+        "description": "Sitio web público de la boda para invitados"
+      }
+    },
+    "demo_notice": "Plataforma de boda de demostración - Reemplaza las credenciales de Firebase en .env.local para usar tus propios datos",
+    "routing_success": "¡El enrutamiento básico está funcionando!",
+    "progressive_message": "Esta es una página de inicio mínima funcional. Todos los componentes pueden agregarse progresivamente."
+  },
+  "dashboard": {
+    "title": "Panel de la Boda",
+    "subtitle": "¡Bienvenido de vuelta! Esto es lo que está pasando con tu boda.",
+    "stats": {
+      "total_guests": "Total de Invitados",
+      "rsvp_responses": "Respuestas de Confirmación",
+      "tasks_completed": "Tareas Completadas",
+      "budget_used": "Presupuesto Usado",
+      "pending": "{count} pendientes",
+      "declined": "{count} rechazados",
+      "complete": "{percent}% completado",
+      "of_planned": "de ${total} planificado"
+    },
+    "recent_activity": {
+      "title": "Actividad Reciente",
+      "rsvp_yes": "{names} confirmó asistencia a {event}",
+      "updated_seating": "Actualizada la disposición de mesas para {table}",
+      "completed_task": "Tarea completada: {task}",
+      "time_ago": {
+        "hours": "hace {count} horas",
+        "days": "hace {count} día",
+        "days_plural": "hace {count} días"
+      }
+    },
+    "upcoming_tasks": {
+      "title": "Próximas Tareas",
+      "due_in": {
+        "days": "Vence en {count} días",
+        "weeks": "Vence en {count} semana",
+        "weeks_plural": "Vence en {count} semanas"
+      }
+    }
+  },
+  "guests": {
+    "title": "Lista de Invitados",
+    "add_guest": "Agregar Invitado",
+    "guest_count": "Mostrando {count} de {total} invitados",
+    "no_guests_yet": "No hay invitados agregados aún. Haz clic en 'Agregar Invitado' para comenzar.",
+    "no_guests_match_filters": "Ningún invitado coincide con los filtros actuales.",
+    "confirm_delete": "¿Estás seguro de que quieres eliminar este invitado?",
+    "guest_name": "Nombre del Invitado",
+    "email": "Email",
+    "phone": "Teléfono",
+    "group": "Grupo",
+    "tags": "Etiquetas",
+    "address": "Dirección",
+    "street_address": "Dirección de la calle",
+    "city": "Ciudad",
+    "state": "Estado/Provincia",
+    "postal_code": "Código postal",
+    "country": "País",
+    "enter_name": "Ingresa el nombre del invitado",
+    "enter_email": "Ingresa dirección de email",
+    "enter_phone": "Ingresa número de teléfono",
+    "add_custom_tag": "Agregar etiqueta personalizada",
+    "rsvp_submitted": "Confirmación enviada",
+    "filters": {
+      "title": "Filtrar Invitados",
+      "clear_all": "Limpiar Todo",
+      "search": "Buscar",
+      "search_placeholder": "Buscar por nombre...",
+      "groups": "Grupos",
+      "tags": "Etiquetas",
+      "tags_and_logic": "los invitados deben tener TODAS las etiquetas seleccionadas",
+      "rsvp_status": "Estado de Confirmación",
+      "active": "Filtros activos"
+    },
+    "rsvp": {
+      "pending": "Pendiente",
+      "accepted": "Aceptado",
+      "declined": "Rechazado",
+      "maybe": "Tal vez"
+    },
+    "add_modal": {
+      "title": "Agregar Invitado",
+      "required_field": "Campo requerido"
+    }
+  },
+  "rsvp": {
+    "title": "Confirmación de Boda",
+    "celebrating_our_love": "están celebrando su amor",
+    "wedding_events": "Eventos de la Boda",
+    "rsvp_title": "Por favor confirma tu asistencia",
+    "rsvp_message": "¡Estamos emocionados de celebrar contigo! Por favor déjanos saber si puedes acompañarnos.",
+    "rsvp_button": "Confirmar Ahora",
+    "rsvp_deadline_notice": "Por favor responde antes del {date}",
+    "accommodation": "Alojamiento",
+    "accommodation_message": "Hemos reservado un bloque de habitaciones en el siguiente hotel para tu comodidad:",
+    "registry": "Lista de Regalos",
+    "registry_message": "¡Tu presencia es el regalo más grande! Si deseas honrarnos con un regalo, estamos registrados en:",
+    "footer_message": "¡No podemos esperar a celebrar contigo!",
+    "hotel": {
+      "name": "Hotel Recomendado",
+      "use_code": "Usa el código: {code}"
+    },
+    "form": {
+      "title": "Formulario de Confirmación",
+      "guest_name": "Nombre del Invitado",
+      "attending": "¿Asistirás?",
+      "accepted": "Sí, asistiré",
+      "declined": "No, no puedo asistir",
+      "maybe": "Tal vez, trataré de asistir",
+      "events": "¿A qué eventos asistirás?",
+      "ceremony": "Ceremonia",
+      "reception": "Recepción",
+      "brunch": "Brunch",
+      "meal_preference": "Preferencia de Comida",
+      "meal_options": {
+        "select": "Seleccionar preferencia de comida",
+        "chicken": "Pollo",
+        "beef": "Carne",
+        "fish": "Pescado",
+        "vegetarian": "Vegetariano",
+        "vegan": "Vegano"
+      },
+      "dietary_restrictions": "Restricciones Dietéticas o Alergias",
+      "dietary_placeholder": "Alergias, restricciones dietéticas...",
+      "plus_ones": "Invitados Adicionales",
+      "add_plus_one": "Agregar Invitado",
+      "remove_plus_one": "Eliminar",
+      "plus_one_name": "Nombre completo",
+      "comments": "Mensaje Especial para la Pareja",
+      "comments_placeholder": "Envía un mensaje especial a los novios...",
+      "submit_rsvp": "Enviar Confirmación",
+      "update_rsvp": "Actualizar Confirmación"
+    },
+    "messages": {
+      "submitted": "¡Gracias! Tu confirmación ha sido enviada exitosamente.",
+      "updated": "Tu confirmación ha sido actualizada exitosamente.",
+      "error": "Hubo un error al enviar tu confirmación. Por favor intenta de nuevo.",
+      "loading": "Enviando tu confirmación...",
+      "confirmation_sent": "Se ha enviado un email de confirmación a la pareja."
+    },
+    "access": {
+      "title": "Acceso de Confirmación",
+      "enter_password": "Ingresa la Contraseña del Grupo",
+      "password_placeholder": "Ingresa la contraseña",
+      "invalid_password": "Contraseña inválida. Por favor intenta de nuevo.",
+      "access_denied": "Acceso denegado. Por favor verifica tu contraseña.",
+      "access_button": "Acceder al Formulario de Confirmación",
+      "back_to_wedding": "← Volver a la Info de la Boda"
+    }
+  }
+}

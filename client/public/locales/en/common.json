@@ -1,0 +1,42 @@
+{
+  "navigation": {
+    "dashboard": "Dashboard",
+    "guests": "Guests",
+    "seating": "Seating",
+    "tasks": "Tasks", 
+    "budget": "Budget",
+    "vendors": "Vendors",
+    "settings": "Settings"
+  },
+  "buttons": {
+    "save": "Save",
+    "cancel": "Cancel", 
+    "delete": "Delete",
+    "edit": "Edit",
+    "add": "Add",
+    "create": "Create",
+    "update": "Update",
+    "submit": "Submit",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "export": "Export",
+    "import": "Import"
+  },
+  "status": {
+    "loading": "Loading...",
+    "saved": "Saved successfully",
+    "error": "An error occurred",
+    "success": "Success",
+    "pending": "Pending",
+    "completed": "Completed",
+    "in_progress": "In Progress"
+  },
+  "forms": {
+    "required": "This field is required",
+    "invalid_email": "Please enter a valid email address",
+    "invalid_phone": "Please enter a valid phone number",
+    "password_min": "Password must be at least 6 characters",
+    "confirm_password": "Passwords do not match"
+  }
+}

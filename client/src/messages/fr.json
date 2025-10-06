@@ -1,0 +1,212 @@
+{
+  "common": {
+    "navigation": {
+      "dashboard": "Tableau de bord",
+      "guests": "Invités",
+      "seating": "Plan de table",
+      "tasks": "Tâches",
+      "budget": "Budget",
+      "vendors": "Prestataires",
+      "settings": "Paramètres"
+    },
+    "buttons": {
+      "save": "Enregistrer",
+      "cancel": "Annuler",
+      "delete": "Supprimer",
+      "edit": "Modifier",
+      "add": "Ajouter",
+      "create": "Créer",
+      "update": "Mettre à jour",
+      "submit": "Soumettre",
+      "back": "Retour",
+      "next": "Suivant",
+      "previous": "Précédent",
+      "export": "Exporter",
+      "import": "Importer",
+      "close": "Fermer",
+      "confirm": "Confirmer"
+    },
+    "status": {
+      "loading": "Chargement...",
+      "saved": "Enregistré avec succès",
+      "error": "Une erreur s'est produite",
+      "success": "Succès",
+      "pending": "En attente",
+      "completed": "Terminé",
+      "in_progress": "En cours",
+      "not_started": "Pas commencé"
+    },
+    "forms": {
+      "required": "Ce champ est requis",
+      "invalid_email": "Veuillez entrer une adresse e-mail valide",
+      "invalid_phone": "Veuillez entrer un numéro de téléphone valide",
+      "password_min": "Le mot de passe doit contenir au moins 6 caractères",
+      "confirm_password": "Les mots de passe ne correspondent pas",
+      "optional": "optionnel"
+    }
+  },
+  "homepage": {
+    "title": "Plateforme de Gestion de Mariage",
+    "subtitle": "Planifiez votre mariage parfait avec nos outils de gestion complets",
+    "features": {
+      "dashboard": {
+        "title": "Tableau de bord",
+        "description": "Aperçu de la planification de votre mariage"
+      },
+      "guests": {
+        "title": "Gestion des Invités",
+        "description": "Gérez votre liste d'invités et les RSVP"
+      },
+      "rsvp": {
+        "title": "Site RSVP",
+        "description": "Site de mariage public pour les invités"
+      }
+    },
+    "demo_notice": "Plateforme de mariage de démonstration - Remplacez les identifiants Firebase dans .env.local pour utiliser vos propres données",
+    "routing_success": "Le routage de base fonctionne !",
+    "progressive_message": "Ceci est une page d'accueil minimale fonctionnelle. Tous les composants peuvent être ajoutés progressivement."
+  },
+  "dashboard": {
+    "title": "Tableau de Bord du Mariage",
+    "subtitle": "Bon retour ! Voici ce qui se passe avec votre mariage.",
+    "stats": {
+      "total_guests": "Total des Invités",
+      "rsvp_responses": "Réponses RSVP",
+      "tasks_completed": "Tâches Terminées",
+      "budget_used": "Budget Utilisé",
+      "pending": "{count} en attente",
+      "declined": "{count} refusés",
+      "complete": "{percent}% terminé",
+      "of_planned": "sur ${total} prévu"
+    },
+    "recent_activity": {
+      "title": "Activité Récente",
+      "rsvp_yes": "{names} a confirmé sa présence à {event}",
+      "updated_seating": "Mise à jour du plan de table pour {table}",
+      "completed_task": "Tâche terminée : {task}",
+      "time_ago": {
+        "hours": "il y a {count} heures",
+        "days": "il y a {count} jour",
+        "days_plural": "il y a {count} jours"
+      }
+    },
+    "upcoming_tasks": {
+      "title": "Tâches à Venir",
+      "due_in": {
+        "days": "À rendre dans {count} jours",
+        "weeks": "À rendre dans {count} semaine",
+        "weeks_plural": "À rendre dans {count} semaines"
+      }
+    }
+  },
+  "guests": {
+    "title": "Liste des Invités",
+    "add_guest": "Ajouter un Invité",
+    "guest_count": "Affichage de {count} sur {total} invités",
+    "no_guests_yet": "Aucun invité ajouté. Cliquez sur 'Ajouter un Invité' pour commencer.",
+    "no_guests_match_filters": "Aucun invité ne correspond aux filtres actuels.",
+    "confirm_delete": "Êtes-vous sûr de vouloir supprimer cet invité ?",
+    "guest_name": "Nom de l'Invité",
+    "email": "E-mail",
+    "phone": "Téléphone",
+    "group": "Groupe",
+    "tags": "Étiquettes",
+    "address": "Adresse",
+    "street_address": "Adresse de la rue",
+    "city": "Ville",
+    "state": "État/Province",
+    "postal_code": "Code postal",
+    "country": "Pays",
+    "enter_name": "Entrez le nom de l'invité",
+    "enter_email": "Entrez l'adresse e-mail",
+    "enter_phone": "Entrez le numéro de téléphone",
+    "add_custom_tag": "Ajouter une étiquette personnalisée",
+    "rsvp_submitted": "RSVP soumis",
+    "filters": {
+      "title": "Filtrer les Invités",
+      "clear_all": "Tout Effacer",
+      "search": "Rechercher",
+      "search_placeholder": "Rechercher par nom...",
+      "groups": "Groupes",
+      "tags": "Étiquettes",
+      "tags_and_logic": "les invités doivent avoir TOUTES les étiquettes sélectionnées",
+      "rsvp_status": "Statut RSVP",
+      "active": "Filtres actifs"
+    },
+    "rsvp": {
+      "pending": "En attente",
+      "accepted": "Accepté",
+      "declined": "Refusé",
+      "maybe": "Peut-être"
+    },
+    "add_modal": {
+      "title": "Ajouter un Invité",
+      "required_field": "Champ requis"
+    }
+  },
+  "rsvp": {
+    "title": "RSVP de Mariage",
+    "celebrating_our_love": "célèbrent leur amour",
+    "wedding_events": "Événements de Mariage",
+    "rsvp_title": "Veuillez confirmer votre présence",
+    "rsvp_message": "Nous sommes ravis de célébrer avec vous ! Veuillez nous faire savoir si vous pouvez vous joindre à nous.",
+    "rsvp_button": "Confirmer maintenant",
+    "rsvp_deadline_notice": "Veuillez répondre avant le {date}",
+    "accommodation": "Hébergement",
+    "accommodation_message": "Nous avons réservé un bloc de chambres à l'hôtel suivant pour votre commodité :",
+    "registry": "Liste de Mariage",
+    "registry_message": "Votre présence est le plus beau cadeau ! Si vous souhaitez nous honorer d'un cadeau, nous sommes inscrits chez :",
+    "footer_message": "Nous avons hâte de célébrer avec vous !",
+    "hotel": {
+      "name": "Hôtel Recommandé",
+      "use_code": "Utilisez le code : {code}"
+    },
+    "form": {
+      "title": "Formulaire RSVP",
+      "guest_name": "Nom de l'Invité",
+      "attending": "Assisterez-vous ?",
+      "accepted": "Oui, je serai présent",
+      "declined": "Non, je ne peux pas assister",
+      "maybe": "Peut-être, j'essaierai d'assister",
+      "events": "À quels événements assisterez-vous ?",
+      "ceremony": "Cérémonie",
+      "reception": "Réception",
+      "brunch": "Brunch",
+      "meal_preference": "Préférence de Repas",
+      "meal_options": {
+        "select": "Sélectionner la préférence de repas",
+        "chicken": "Poulet",
+        "beef": "Bœuf",
+        "fish": "Poisson",
+        "vegetarian": "Végétarien",
+        "vegan": "Végétalien"
+      },
+      "dietary_restrictions": "Restrictions Alimentaires ou Allergies",
+      "dietary_placeholder": "Allergies, restrictions alimentaires...",
+      "plus_ones": "Invités Supplémentaires",
+      "add_plus_one": "Ajouter un Invité",
+      "remove_plus_one": "Supprimer",
+      "plus_one_name": "Nom complet",
+      "comments": "Message Spécial pour le Couple",
+      "comments_placeholder": "Envoyez un message spécial aux heureux mariés...",
+      "submit_rsvp": "Soumettre RSVP",
+      "update_rsvp": "Mettre à jour RSVP"
+    },
+    "messages": {
+      "submitted": "Merci ! Votre RSVP a été soumis avec succès.",
+      "updated": "Votre RSVP a été mis à jour avec succès.",
+      "error": "Il y a eu une erreur lors de la soumission de votre RSVP. Veuillez réessayer.",
+      "loading": "Soumission de votre RSVP...",
+      "confirmation_sent": "Un e-mail de confirmation a été envoyé au couple."
+    },
+    "access": {
+      "title": "Accès RSVP",
+      "enter_password": "Entrez le Mot de Passe du Groupe",
+      "password_placeholder": "Entrez le mot de passe",
+      "invalid_password": "Mot de passe invalide. Veuillez réessayer.",
+      "access_denied": "Accès refusé. Veuillez vérifier votre mot de passe.",
+      "access_button": "Accéder au Formulaire RSVP",
+      "back_to_wedding": "← Retour aux Infos du Mariage"
+    }
+  }
+}

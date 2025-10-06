@@ -1,0 +1,42 @@
+{
+  "navigation": {
+    "dashboard": "Tableau de bord",
+    "guests": "Invités",
+    "seating": "Plan de table",
+    "tasks": "Tâches", 
+    "budget": "Budget",
+    "vendors": "Prestataires",
+    "settings": "Paramètres"
+  },
+  "buttons": {
+    "save": "Enregistrer",
+    "cancel": "Annuler", 
+    "delete": "Supprimer",
+    "edit": "Modifier",
+    "add": "Ajouter",
+    "create": "Créer",
+    "update": "Mettre à jour",
+    "submit": "Soumettre",
+    "back": "Retour",
+    "next": "Suivant",
+    "previous": "Précédent",
+    "export": "Exporter",
+    "import": "Importer"
+  },
+  "status": {
+    "loading": "Chargement...",
+    "saved": "Enregistré avec succès",
+    "error": "Une erreur s'est produite",
+    "success": "Succès",
+    "pending": "En attente",
+    "completed": "Terminé",
+    "in_progress": "En cours"
+  },
+  "forms": {
+    "required": "Ce champ est requis",
+    "invalid_email": "Veuillez entrer une adresse e-mail valide",
+    "invalid_phone": "Veuillez entrer un numéro de téléphone valide",
+    "password_min": "Le mot de passe doit contenir au moins 6 caractères",
+    "confirm_password": "Les mots de passe ne correspondent pas"
+  }
+}

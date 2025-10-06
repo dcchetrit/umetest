@@ -1,0 +1,50 @@
+{
+  "title": "Wedding RSVP",
+  "celebrating_our_love": "are celebrating their love",
+  "wedding_events": "Wedding Events",
+  "rsvp_title": "Please RSVP",
+  "rsvp_message": "We're excited to celebrate with you! Please let us know if you can join us.",
+  "rsvp_button": "RSVP Now",
+  "rsvp_deadline_notice": "Please respond by [deadline date]",
+  "accommodation": "Accommodation",
+  "accommodation_message": "We've reserved a block of rooms at the following hotel for your convenience:",
+  "registry": "Wedding Registry",
+  "registry_message": "Your presence is the greatest gift! If you'd like to honor us with a gift, we've registered at:",
+  "footer_message": "We can't wait to celebrate with you!",
+  "form": {
+    "guest_name": "Guest Name",
+    "attending": "Will you be attending?",
+    "accepted": "Yes, I'll be there",
+    "declined": "Sorry, can't make it",
+    "maybe": "Maybe",
+    "events": "Which events will you attend?",
+    "ceremony": "Ceremony",
+    "reception": "Reception", 
+    "brunch": "Brunch",
+    "meal_preference": "Meal Preference",
+    "vegetarian": "Vegetarian",
+    "vegan": "Vegan",
+    "gluten_free": "Gluten Free",
+    "other": "Other",
+    "dietary_restrictions": "Dietary Restrictions or Allergies",
+    "plus_ones": "Additional Guests",
+    "add_plus_one": "Add Guest",
+    "remove_plus_one": "Remove Guest",
+    "comments": "Special Message for the Couple",
+    "submit_rsvp": "Submit RSVP",
+    "update_rsvp": "Update RSVP"
+  },
+  "messages": {
+    "submitted": "Thank you! Your RSVP has been submitted successfully.",
+    "updated": "Your RSVP has been updated successfully.",
+    "error": "There was an error submitting your RSVP. Please try again.",
+    "loading": "Submitting your RSVP...",
+    "confirmation_sent": "A confirmation email has been sent to the couple."
+  },
+  "access": {
+    "enter_password": "Enter Group Password",
+    "password_placeholder": "Enter password",
+    "invalid_password": "Invalid password. Please try again.",
+    "access_denied": "Access denied. Please check your invitation link."
+  }
+}

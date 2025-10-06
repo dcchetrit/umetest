@@ -1,0 +1,212 @@
+{
+  "common": {
+    "navigation": {
+      "dashboard": "Dashboard",
+      "guests": "Guests",
+      "seating": "Seating",
+      "tasks": "Tasks",
+      "budget": "Budget",
+      "vendors": "Vendors",
+      "settings": "Settings"
+    },
+    "buttons": {
+      "save": "Save",
+      "cancel": "Cancel",
+      "delete": "Delete",
+      "edit": "Edit",
+      "add": "Add",
+      "create": "Create",
+      "update": "Update",
+      "submit": "Submit",
+      "back": "Back",
+      "next": "Next",
+      "previous": "Previous",
+      "export": "Export",
+      "import": "Import",
+      "close": "Close",
+      "confirm": "Confirm"
+    },
+    "status": {
+      "loading": "Loading...",
+      "saved": "Saved successfully",
+      "error": "An error occurred",
+      "success": "Success",
+      "pending": "Pending",
+      "completed": "Completed",
+      "in_progress": "In Progress",
+      "not_started": "Not Started"
+    },
+    "forms": {
+      "required": "This field is required",
+      "invalid_email": "Please enter a valid email address",
+      "invalid_phone": "Please enter a valid phone number",
+      "password_min": "Password must be at least 6 characters",
+      "confirm_password": "Passwords do not match",
+      "optional": "optional"
+    }
+  },
+  "homepage": {
+    "title": "Wedding Management Platform",
+    "subtitle": "Plan your perfect wedding with our comprehensive management tools",
+    "features": {
+      "dashboard": {
+        "title": "Dashboard",
+        "description": "Overview of your wedding planning"
+      },
+      "guests": {
+        "title": "Guest Management",
+        "description": "Manage your guest list and RSVPs"
+      },
+      "rsvp": {
+        "title": "RSVP Site",
+        "description": "Public wedding site for guests"
+      }
+    },
+    "demo_notice": "Demo wedding platform - Replace Firebase credentials in .env.local to use with your own data",
+    "routing_success": "Basic routing is working!",
+    "progressive_message": "This is a minimal working homepage. All components can be added back progressively."
+  },
+  "dashboard": {
+    "title": "Wedding Dashboard",
+    "subtitle": "Welcome back! Here's what's happening with your wedding.",
+    "stats": {
+      "total_guests": "Total Guests",
+      "rsvp_responses": "RSVP Responses",
+      "tasks_completed": "Tasks Completed",
+      "budget_used": "Budget Used",
+      "pending": "{count} pending",
+      "declined": "{count} declined",
+      "complete": "{percent}% complete",
+      "of_planned": "of ${total} planned"
+    },
+    "recent_activity": {
+      "title": "Recent Activity",
+      "rsvp_yes": "{names} RSVP'd yes to the {event}",
+      "updated_seating": "Updated seating arrangement for {table}",
+      "completed_task": "Completed task: {task}",
+      "time_ago": {
+        "hours": "{count} hours ago",
+        "days": "{count} day ago",
+        "days_plural": "{count} days ago"
+      }
+    },
+    "upcoming_tasks": {
+      "title": "Upcoming Tasks",
+      "due_in": {
+        "days": "Due in {count} days",
+        "weeks": "Due in {count} week",
+        "weeks_plural": "Due in {count} weeks"
+      }
+    }
+  },
+  "guests": {
+    "title": "Guest List",
+    "add_guest": "Add Guest",
+    "guest_count": "Showing {count} of {total} guests",
+    "no_guests_yet": "No guests added yet. Click 'Add Guest' to get started.",
+    "no_guests_match_filters": "No guests match the current filters.",
+    "confirm_delete": "Are you sure you want to delete this guest?",
+    "guest_name": "Guest Name",
+    "email": "Email",
+    "phone": "Phone",
+    "group": "Group",
+    "tags": "Tags",
+    "address": "Address",
+    "street_address": "Street Address",
+    "city": "City",
+    "state": "State/Province",
+    "postal_code": "Postal Code",
+    "country": "Country",
+    "enter_name": "Enter guest name",
+    "enter_email": "Enter email address",
+    "enter_phone": "Enter phone number",
+    "add_custom_tag": "Add custom tag",
+    "rsvp_submitted": "RSVP submitted",
+    "filters": {
+      "title": "Filter Guests",
+      "clear_all": "Clear All",
+      "search": "Search",
+      "search_placeholder": "Search by name...",
+      "groups": "Groups",
+      "tags": "Tags",
+      "tags_and_logic": "guests must have ALL selected tags",
+      "rsvp_status": "RSVP Status",
+      "active": "Active filters"
+    },
+    "rsvp": {
+      "pending": "Pending",
+      "accepted": "Accepted",
+      "declined": "Declined",
+      "maybe": "Maybe"
+    },
+    "add_modal": {
+      "title": "Add Guest",
+      "required_field": "Required field"
+    }
+  },
+  "rsvp": {
+    "title": "Wedding RSVP",
+    "celebrating_our_love": "are celebrating their love",
+    "wedding_events": "Wedding Events",
+    "rsvp_title": "Please RSVP",
+    "rsvp_message": "We're excited to celebrate with you! Please let us know if you can join us.",
+    "rsvp_button": "RSVP Now",
+    "rsvp_deadline_notice": "Please respond by {date}",
+    "accommodation": "Accommodation",
+    "accommodation_message": "We've reserved a block of rooms at the following hotel for your convenience:",
+    "registry": "Wedding Registry",
+    "registry_message": "Your presence is the greatest gift! If you'd like to honor us with a gift, we've registered at:",
+    "footer_message": "We can't wait to celebrate with you!",
+    "hotel": {
+      "name": "Recommended Hotel",
+      "use_code": "Use code: {code}"
+    },
+    "form": {
+      "title": "RSVP Form",
+      "guest_name": "Guest Name",
+      "attending": "Will you be attending?",
+      "accepted": "Yes, I will attend",
+      "declined": "No, I cannot attend",
+      "maybe": "Maybe, I will try to attend",
+      "events": "Which events will you attend?",
+      "ceremony": "Ceremony",
+      "reception": "Reception",
+      "brunch": "Brunch",
+      "meal_preference": "Meal Preference",
+      "meal_options": {
+        "select": "Select meal preference",
+        "chicken": "Chicken",
+        "beef": "Beef",
+        "fish": "Fish",
+        "vegetarian": "Vegetarian",
+        "vegan": "Vegan"
+      },
+      "dietary_restrictions": "Dietary Restrictions or Allergies",
+      "dietary_placeholder": "Allergies, dietary restrictions...",
+      "plus_ones": "Additional Guests",
+      "add_plus_one": "Add Guest",
+      "remove_plus_one": "Remove",
+      "plus_one_name": "Full name",
+      "comments": "Special Message for the Couple",
+      "comments_placeholder": "Send a special message to the happy couple...",
+      "submit_rsvp": "Submit RSVP",
+      "update_rsvp": "Update RSVP"
+    },
+    "messages": {
+      "submitted": "Thank you! Your RSVP has been submitted successfully.",
+      "updated": "Your RSVP has been updated successfully.",
+      "error": "There was an error submitting your RSVP. Please try again.",
+      "loading": "Submitting your RSVP...",
+      "confirmation_sent": "A confirmation email has been sent to the couple."
+    },
+    "access": {
+      "title": "RSVP Access",
+      "enter_password": "Enter Group Password",
+      "password_placeholder": "Enter password",
+      "invalid_password": "Invalid password. Please try again.",
+      "access_denied": "Access denied. Please check your password.",
+      "access_button": "Access RSVP Form",
+      "back_to_wedding": "← Back to Wedding Info"
+    }
+  }
+}
