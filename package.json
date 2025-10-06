@@ -1,0 +1,21 @@
+{
+  "name": "ume-wedding-platform",
+  "version": "1.0.0",
+  "description": "Wedding Management Platform with Client and Admin Apps",
+  "scripts": {
+    "dev:client": "cd client && npm run dev",
+    "dev:admin": "cd admin && npm run dev",
+    "build:client": "cd client && npm run build",
+    "build:admin": "cd admin && npm run build",
+    "install:all": "npm install && cd client && npm install && cd ../admin && npm install && cd ../shared && npm install",
+    "lint": "cd client && npm run lint && cd ../admin && npm run lint"
+  },
+  "workspaces": [
+    "client",
+    "admin", 
+    "shared"
+  ],
+  "devDependencies": {
+    "firebase-tools": "^12.7.0"
+  }
+}

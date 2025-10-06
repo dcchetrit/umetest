@@ -1,0 +1,70 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    // Helper functions
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    function isAdmin() {
+      return isAuthenticated() && 
+             request.auth.token.admin == true;
+    }
+    
+    function isCoupleOwner(coupleId) {
+      return isAuthenticated() && 
+             request.auth.uid in resource.data.ownerIds;
+    }
+    
+    function isCoupleAuthorized(coupleId) {
+      return isAdmin() || isCoupleOwner(coupleId);
+    }
+
+    // Couple-specific storage paths
+    match /couples/{coupleId}/{allPaths=**} {
+      allow read, write: if isCoupleAuthorized(coupleId);
+    }
+    
+    // Guest photos and documents
+    match /couples/{coupleId}/guests/{guestId}/{allPaths=**} {
+      allow read, write: if isCoupleAuthorized(coupleId);
+    }
+    
+    // Event photos and documents
+    match /couples/{coupleId}/events/{eventId}/{allPaths=**} {
+      allow read, write: if isCoupleAuthorized(coupleId);
+    }
+    
+    // Vendor documents
+    match /couples/{coupleId}/vendors/{vendorId}/{allPaths=**} {
+      allow read, write: if isCoupleAuthorized(coupleId);
+    }
+    
+    // Profile photos
+    match /couples/{coupleId}/profile/{allPaths=**} {
+      allow read, write: if isCoupleAuthorized(coupleId);
+    }
+    
+    // Public RSVP assets (readable by anyone with link)
+    match /couples/{coupleId}/public/{allPaths=**} {
+      allow read: if true;
+      allow write: if isCoupleAuthorized(coupleId);
+    }
+
+    // Admin-only storage
+    match /admin/{allPaths=**} {
+      allow read, write: if isAdmin();
+    }
+    
+    // Global assets (platform-wide images, templates, etc.)
+    match /global/{allPaths=**} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // Deny all other access
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}

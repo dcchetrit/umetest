@@ -1,0 +1,14 @@
+{
+  "name": "@ume/shared",
+  "version": "1.0.0",
+  "description": "Shared utilities and types for UME Wedding Platform",
+  "main": "index.js",
+  "dependencies": {
+    "firebase": "^10.4.0",
+    "firebase-admin": "^11.11.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.6.3",
+    "typescript": "^5.2.2"
+  }
+}

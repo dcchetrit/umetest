@@ -1,0 +1,107 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Helper functions
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    function isAdmin() {
+      return isAuthenticated() && 
+             ('role' in request.auth.token) && 
+             request.auth.token.role == 'admin';
+    }
+    
+    function isCoupleOwner(coupleId) {
+      return isAuthenticated() && 
+             resource.data.owners.hasAll([request.auth.uid]);
+    }
+    
+    function isCoupleOwnerOrAdmin(coupleId) {
+      return isAdmin() || isCoupleOwner(coupleId);
+    }
+    
+    function hasValidRSVPToken(coupleId) {
+      return isAuthenticated() && 
+             request.auth.token.rsvpToken != null &&
+             request.auth.token.coupleId == coupleId;
+    }
+
+    // Couples collection - main tenant documents
+    match /couples/{coupleId} {
+      allow read, write: if isCoupleOwnerOrAdmin(coupleId);
+      allow create: if isAdmin();
+      
+      // Guest subcollection
+      match /guests/{guestId} {
+        allow read, write: if isCoupleOwnerOrAdmin(coupleId);
+        // Allow RSVP updates for guests with valid tokens
+        allow update: if hasValidRSVPToken(coupleId) && 
+                      onlyUpdatingRSVP();
+      }
+      
+      // Events subcollection
+      match /events/{eventId} {
+        allow read, write: if isCoupleOwnerOrAdmin(coupleId);
+        // Allow public read for RSVP purposes
+        allow read: if hasValidRSVPToken(coupleId);
+      }
+      
+      // Groups subcollection
+      match /groups/{groupId} {
+        allow read, write: if isCoupleOwnerOrAdmin(coupleId);
+        // Allow read for RSVP token holders
+        allow read: if hasValidRSVPToken(coupleId);
+      }
+      
+      // Tasks subcollection
+      match /tasks/{taskId} {
+        allow read, write: if isCoupleOwnerOrAdmin(coupleId);
+      }
+      
+      // Budget subcollection
+      match /budget/{budgetId} {
+        allow read, write: if isCoupleOwnerOrAdmin(coupleId);
+      }
+      
+      // Vendors subcollection
+      match /vendors/{vendorId} {
+        allow read, write: if isCoupleOwnerOrAdmin(coupleId);
+      }
+      
+      // Seating subcollection
+      match /seating/{seatingId} {
+        allow read, write: if isCoupleOwnerOrAdmin(coupleId);
+      }
+      
+      // RSVP Links subcollection
+      match /rsvpLinks/{linkId} {
+        allow read, write: if isCoupleOwnerOrAdmin(coupleId);
+      }
+      
+      // Analytics subcollection
+      match /analytics/{analyticsId} {
+        allow read, write: if isCoupleOwnerOrAdmin(coupleId);
+        allow read: if isAdmin(); // Admins can read analytics for platform insights
+      }
+    }
+    
+    // Admin-only collections
+    match /adminSettings/{document=**} {
+      allow read, write: if isAdmin();
+    }
+    
+    match /globalVendors/{document=**} {
+      allow read, write: if isAdmin();
+      allow read: if isAuthenticated(); // Couples can read global vendor directory
+    }
+    
+    // Helper function to check if only RSVP fields are being updated
+    function onlyUpdatingRSVP() {
+      let affectedKeys = request.resource.data.diff(resource.data).affectedKeys();
+      return affectedKeys.hasOnly(['rsvp', 'updatedAt']) &&
+             request.resource.data.keys().hasAll(resource.data.keys());
+    }
+  }
+}
