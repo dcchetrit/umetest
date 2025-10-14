@@ -10,7 +10,7 @@ export function filterUndefined(obj: Record<string, any>): Record<string, any> {
   const filtered: Record<string, any> = {};
   for (const [key, value] of Object.entries(obj)) {
     if (value !== undefined) {
-      if (typeof value === 'object' && value !== null && !Array.isArray(value) && !(value instanceof Date)) {
+      if (typeof value === 'object' && value !== null && !Array.isArray(value) && !(value instanceof Date) && !isFirestoreTimestamp(value)) {
         filtered[key] = filterUndefined(value);
       } else {
         filtered[key] = value;
@@ -18,6 +18,15 @@ export function filterUndefined(obj: Record<string, any>): Record<string, any> {
     }
   }
   return filtered;
+}
+
+/**
+ * Check if a value is a Firestore Timestamp
+ */
+function isFirestoreTimestamp(value: any): boolean {
+  return value && typeof value === 'object' && 
+         typeof value.toDate === 'function' && 
+         typeof value.seconds === 'number';
 }
 
 /**

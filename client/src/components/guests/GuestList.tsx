@@ -10,6 +10,7 @@ import AddGuestModal from './AddGuestModal';
 
 interface GuestListProps {
   coupleId: string;
+  coupleSlug: string;
 }
 
 interface FilterOptions {
@@ -19,7 +20,7 @@ interface FilterOptions {
   rsvpStatus: string;
 }
 
-export default function GuestList({ coupleId }: GuestListProps) {
+export default function GuestList({ coupleId, coupleSlug }: GuestListProps) {
   const t = useTranslations('guests');
   const [guests, setGuests] = useState<Guest[]>([]);
   const [groups, setGroups] = useState<Group[]>([]);
@@ -90,7 +91,7 @@ export default function GuestList({ coupleId }: GuestListProps) {
 
   const filteredGuests = guests.filter(guest => {
     // Search filter
-    if (filters.search && !guest.name.toLowerCase().includes(filters.search.toLowerCase())) {
+    if (filters.search && !guest.firstName.toLowerCase().includes(filters.search.toLowerCase())) {
       return false;
     }
 
@@ -157,6 +158,8 @@ export default function GuestList({ coupleId }: GuestListProps) {
                 key={guest.id}
                 guest={guest}
                 groups={groups}
+                coupleId={coupleId}
+                coupleSlug={coupleSlug}
                 onUpdate={handleUpdateGuest}
                 onDelete={handleDeleteGuest}
               />

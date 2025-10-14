@@ -15,7 +15,7 @@ export default function HomePage({ params }: { params: Promise<{ locale: string 
       if (!loading) {
         if (user) {
           // User is authenticated, redirect to dashboard
-          router.push(`/${locale}/app/dashboard`);
+          router.push(`/${locale}/dashboard`);
         } else {
           // User is not authenticated, redirect to login
           router.push(`/${locale}/login`);

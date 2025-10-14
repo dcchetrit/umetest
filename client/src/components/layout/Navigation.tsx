@@ -29,7 +29,7 @@ function getLocalizedText(locale: string, key: string): string {
       profile: 'Profile'
     },
     fr: {
-      dashboard: 'Tableau de bord',
+      dashboard: 'Accueil',
       guests: 'Invités',
       rsvp: 'RSVP',
       website: 'Site Web',
@@ -39,14 +39,14 @@ function getLocalizedText(locale: string, key: string): string {
       vendors: 'Fournisseurs',
       settings: 'Paramètres',
       forecast: 'Prévisions',
-      benchmark: 'Référence',
+      benchmark: 'Benchmark',
       platform_title: 'U&Me',
       planning_management: 'Planification et Gestion',
-      guests_events: 'Invités et Événements',
+      guests_events: 'Invités',
       financial: 'Financier',
-      vendor: 'Fournisseur',
+      vendor: 'Prestataires',
       logout: 'Se déconnecter',
-      profile: 'Profil'
+      profile: 'Mon Profil'
     },
     es: {
       dashboard: 'Panel',
@@ -110,44 +110,44 @@ export default function Navigation() {
     {
       label: 'dashboard',
       single: true,
-      href: `/${locale}/app/dashboard`,
+      href: `/${locale}/dashboard`,
       labelKey: 'dashboard',
       icon: 'dashboard'
     },
     {
       label: 'tasks',
       single: true,
-      href: `/${locale}/app/tasks`,
+      href: `/${locale}/tasks`,
       labelKey: 'tasks',
       icon: 'tasks'
     },
     {
       label: 'guests_events', 
       items: [
-        { href: `/${locale}/app/guests`, labelKey: 'guests', icon: 'guests' },
-        { href: `/${locale}/app/rsvp`, labelKey: 'rsvp', icon: 'rsvp' },
-        { href: `/${locale}/app/seating`, labelKey: 'seating', icon: 'seating' },
+        { href: `/${locale}/guests`, labelKey: 'guests', icon: 'guests' },
+        { href: `/${locale}/rsvp`, labelKey: 'rsvp', icon: 'rsvp' },
+        { href: `/${locale}/seating`, labelKey: 'seating', icon: 'seating' },
       ]
     },
     {
       label: 'website',
       single: true,
-      href: `/${locale}/app/website`,
+      href: `/${locale}/website`,
       labelKey: 'website',
       icon: 'website'
     },
     {
       label: 'financial',
       items: [
-        { href: `/${locale}/app/forecast`, labelKey: 'forecast', icon: 'forecast' },
-        { href: `/${locale}/app/budget`, labelKey: 'budget', icon: 'budget' },
+        { href: `/${locale}/forecast`, labelKey: 'forecast', icon: 'forecast' },
+        { href: `/${locale}/budget`, labelKey: 'budget', icon: 'budget' },
       ]
     },
     {
       label: 'vendor',
       items: [
-        { href: `/${locale}/app/vendors`, labelKey: 'vendors', icon: 'vendors' },
-        { href: `/${locale}/app/benchmark`, labelKey: 'benchmark', icon: 'benchmark' },
+        { href: `/${locale}/vendors`, labelKey: 'vendors', icon: 'vendors' },
+        { href: `/${locale}/benchmark`, labelKey: 'benchmark', icon: 'benchmark' },
       ]
     },
   ];
@@ -329,9 +329,9 @@ export default function Navigation() {
           <div className="flex items-center space-x-4">
             {/* Profile button */}
             <Link
-              href={`/${locale}/app/profile`}
+              href={`/${locale}/profile`}
               className={`hidden sm:inline-flex items-center px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
-                pathname === `/${locale}/app/profile`
+                pathname === `/${locale}/profile`
                   ? 'bg-rose-50 text-rose-700 shadow-sm border border-rose-100'
                   : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
               }`}
@@ -426,9 +426,9 @@ export default function Navigation() {
             {/* Mobile profile link */}
             <div className="pt-6 border-t border-gray-200/50">
               <Link
-                href={`/${locale}/app/profile`}
+                href={`/${locale}/profile`}
                 className={`flex items-center px-4 py-3 rounded-xl text-base font-medium transition-all duration-200 ${
-                  pathname === `/${locale}/app/profile`
+                  pathname === `/${locale}/profile`
                     ? 'text-rose-700 bg-rose-50 border border-rose-100 shadow-sm'
                     : 'text-gray-700 hover:text-gray-900 hover:bg-white/70'
                 }`}
@@ -436,7 +436,7 @@ export default function Navigation() {
               >
                 <span className="mr-4 w-5 h-5">{getIcon('profile')}</span>
                 <span className="flex-1">{getLocalizedText(locale, 'profile')}</span>
-                {pathname === `/${locale}/app/profile` && (
+                {pathname === `/${locale}/profile` && (
                   <div className="w-2 h-2 bg-rose-500 rounded-full"></div>
                 )}
               </Link>

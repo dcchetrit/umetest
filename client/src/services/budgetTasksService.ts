@@ -81,26 +81,29 @@ export class BudgetTasksService {
   }
 
   private async getBudgetExpensesWithPayments(): Promise<BudgetExpenseForTask[]> {
-    const categoryExpensesQuery = query(collection(db, 'couples', this.coupleId, 'budgetCategories'));
-    const categorySnapshot = await getDocs(categoryExpensesQuery);
+    const expensesQuery = query(collection(db, 'couples', this.coupleId, 'budget', 'expenses', 'items'));
+    const expensesSnapshot = await getDocs(expensesQuery);
     
     const expenses: BudgetExpenseForTask[] = [];
     
-    for (const categoryDoc of categorySnapshot.docs) {
-      const categoryData = categoryDoc.data();
-      const categoryExpenses = categoryData.expenses || [];
+    for (const expenseDoc of expensesSnapshot.docs) {
+      const expenseData = expenseDoc.data();
       
-      for (const expense of categoryExpenses) {
-        if (expense.paymentDueDate || expense.depositDueDate || expense.finalPaymentDueDate) {
-          expenses.push({
-            ...expense,
-            id: expense.id,
-            categoryId: categoryDoc.id,
-            paymentDueDate: expense.paymentDueDate?.toDate?.() || null,
-            depositDueDate: expense.depositDueDate?.toDate?.() || null,
-            finalPaymentDueDate: expense.finalPaymentDueDate?.toDate?.() || null
-          });
-        }
+      if (expenseData.paymentDueDate || expenseData.depositDueDate || expenseData.finalPaymentDueDate) {
+        const expense: BudgetExpenseForTask = {
+          id: expenseDoc.id,
+          vendorName: expenseData.vendorName,
+          quotedPrice: expenseData.quotedPrice || 0,
+          amountPaid: expenseData.amountPaid || 0,
+          paymentDueDate: expenseData.paymentDueDate?.toDate?.() || (expenseData.paymentDueDate ? new Date(expenseData.paymentDueDate.seconds * 1000) : null),
+          depositDueDate: expenseData.depositDueDate?.toDate?.() || (expenseData.depositDueDate ? new Date(expenseData.depositDueDate.seconds * 1000) : null),
+          finalPaymentDueDate: expenseData.finalPaymentDueDate?.toDate?.() || (expenseData.finalPaymentDueDate ? new Date(expenseData.finalPaymentDueDate.seconds * 1000) : null),
+          depositAmount: expenseData.depositAmount,
+          paymentStatus: expenseData.paymentStatus || 'due',
+          categoryId: expenseData.categoryId || 'unknown'
+        };
+        
+        expenses.push(expense);
       }
     }
     
@@ -140,15 +143,13 @@ export class BudgetTasksService {
     existingSyncs: BudgetTaskSync[],
     transaction: any
   ): Promise<void> {
+
     const today = new Date();
     const reminderLeadDays = 7; // Create reminders 7 days before due date
 
     // Handle deposit payment reminder
     if (expense.depositDueDate && expense.depositAmount) {
-      const depositReminder = new Date(expense.depositDueDate);
-      depositReminder.setDate(depositReminder.getDate() - reminderLeadDays);
-      
-      if (depositReminder <= today && !this.hasExistingSync(expense.id, 'deposit_due', existingSyncs)) {
+      if (!this.hasExistingSync(expense.id, 'deposit_due', existingSyncs)) {
         await this.createPaymentReminderTask(
           expense, 
           'deposit_due', 
@@ -161,11 +162,8 @@ export class BudgetTasksService {
 
     // Handle final payment reminder
     if (expense.finalPaymentDueDate) {
-      const finalReminder = new Date(expense.finalPaymentDueDate);
-      finalReminder.setDate(finalReminder.getDate() - reminderLeadDays);
-      
-      if (finalReminder <= today && !this.hasExistingSync(expense.id, 'final_payment', existingSyncs)) {
-        const remainingAmount = expense.quotedPrice - expense.amountPaid;
+      const remainingAmount = expense.quotedPrice - expense.amountPaid;
+      if (remainingAmount > 0 && !this.hasExistingSync(expense.id, 'final_payment', existingSyncs)) {
         await this.createPaymentReminderTask(
           expense,
           'final_payment',
@@ -178,11 +176,8 @@ export class BudgetTasksService {
 
     // Handle general payment reminder
     if (expense.paymentDueDate && expense.paymentStatus !== 'paid') {
-      const paymentReminder = new Date(expense.paymentDueDate);
-      paymentReminder.setDate(paymentReminder.getDate() - reminderLeadDays);
-      
-      if (paymentReminder <= today && !this.hasExistingSync(expense.id, 'payment_reminder', existingSyncs)) {
-        const remainingAmount = expense.quotedPrice - expense.amountPaid;
+      const remainingAmount = expense.quotedPrice - expense.amountPaid;
+      if (remainingAmount > 0 && !this.hasExistingSync(expense.id, 'payment_reminder', existingSyncs)) {
         await this.createPaymentReminderTask(
           expense,
           'payment_reminder',
@@ -215,6 +210,7 @@ export class BudgetTasksService {
   ): Promise<void> {
     const taskId = `payment-${expense.id}-${syncType}-${Date.now()}`;
     const syncId = `sync-${expense.id}-${syncType}`;
+
 
     const taskTitle = this.generateTaskTitle(expense.vendorName, syncType, amount);
     const taskDescription = this.generateTaskDescription(expense, syncType, amount);

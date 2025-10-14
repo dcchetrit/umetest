@@ -22,6 +22,27 @@ interface CoupleData {
   guestCount: string;
   venue: string;
   phone: string;
+  selectedLocale: string;
+}
+
+/**
+ * Create a Firestore Timestamp for wedding date with proper timezone handling
+ * Converts YYYY-MM-DD to a date at 3:00 PM in the user's timezone
+ */
+function createWeddingDateTimestamp(dateString: string): any {
+  if (!dateString) return null;
+  
+  // Create date in user's local timezone at 3:00 PM (15:00)
+  const date = new Date(dateString + 'T15:00:00');
+  
+  // If date is invalid, try alternative parsing
+  if (isNaN(date.getTime())) {
+    const [year, month, day] = dateString.split('-').map(Number);
+    const localDate = new Date(year, month - 1, day, 15, 0, 0); // 3:00 PM local time
+    return Timestamp.fromDate(localDate);
+  }
+  
+  return Timestamp.fromDate(date);
 }
 
 function getLocalizedText(locale: string, key: string): string {
@@ -46,6 +67,10 @@ function getLocalizedText(locale: string, key: string): string {
       back_home: '← Back to Home',
       welcome_text: 'Join thousands of couples planning their perfect wedding',
       free_forever: '100% Free Forever',
+      language: 'Language',
+      english: 'English',
+      french: 'Français',
+      spanish: 'Español',
       terms_text: 'By signing up, you agree to our Terms of Service and Privacy Policy',
       error_occurred: 'An error occurred',
       passwords_dont_match: 'Passwords do not match',
@@ -77,6 +102,10 @@ function getLocalizedText(locale: string, key: string): string {
       back_home: '← Retour à l\'accueil',
       welcome_text: 'Rejoignez des milliers de couples qui planifient leur mariage parfait',
       free_forever: '100% Gratuit pour toujours',
+      language: 'Langue',
+      english: 'English',
+      french: 'Français',
+      spanish: 'Español',
       terms_text: 'En vous inscrivant, vous acceptez nos Conditions d\'utilisation et notre Politique de confidentialité',
       error_occurred: 'Une erreur est survenue',
       passwords_dont_match: 'Les mots de passe ne correspondent pas',
@@ -108,6 +137,10 @@ function getLocalizedText(locale: string, key: string): string {
       back_home: '← Volver al inicio',
       welcome_text: 'Únete a miles de parejas que planifican su boda perfecta',
       free_forever: '100% Gratis para siempre',
+      language: 'Idioma',
+      english: 'English',
+      french: 'Français',
+      spanish: 'Español',
       terms_text: 'Al registrarte, aceptas nuestros Términos de servicio y Política de privacidad',
       error_occurred: 'Ocurrió un error',
       passwords_dont_match: 'Las contraseñas no coinciden',
@@ -136,7 +169,8 @@ export default function SignupForm({ locale }: SignupFormProps) {
     budget: '',
     guestCount: '',
     venue: '',
-    phone: ''
+    phone: '',
+    selectedLocale: locale
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -181,8 +215,8 @@ export default function SignupForm({ locale }: SignupFormProps) {
           partner2: formData.partner2Name.trim()
         },
         slug: `${formData.partner1Name.trim().toLowerCase().replace(/\s+/g, '-')}-and-${formData.partner2Name.trim().toLowerCase().replace(/\s+/g, '-')}`,
-        locale: locale,
-        currency: locale === 'fr' ? 'EUR' : locale === 'es' ? 'EUR' : 'USD',
+        locale: formData.selectedLocale,
+        currency: 'EUR',
         theme: {
           primaryColor: '#e91e63',
           secondaryColor: '#f8bbd9',
@@ -195,7 +229,7 @@ export default function SignupForm({ locale }: SignupFormProps) {
         timezone: Intl.DateTimeFormat().resolvedOptions().timeZone
       },
       email: formData.email.trim(),
-      weddingDate: formData.weddingDate ? Timestamp.fromDate(new Date(formData.weddingDate)) : null,
+      weddingDate: formData.weddingDate ? createWeddingDateTimestamp(formData.weddingDate) : null,
       estimatedBudget: formData.budget ? parseFloat(formData.budget) : null,
       estimatedGuestCount: formData.guestCount ? parseInt(formData.guestCount) : null,
       venue: formData.venue.trim() || null,
@@ -266,7 +300,7 @@ export default function SignupForm({ locale }: SignupFormProps) {
       
       // Redirect to dashboard after short delay
       setTimeout(() => {
-        router.push(`/${locale}/app/dashboard`);
+        router.push(`/${formData.selectedLocale}/dashboard`);
       }, 2000);
       
     } catch (error: any) {
@@ -309,12 +343,6 @@ export default function SignupForm({ locale }: SignupFormProps) {
   return (
     <div className="min-h-screen bg-gradient-to-br from-pink-50 to-purple-50 py-8">
       <div className="max-w-2xl mx-4 lg:mx-auto">
-        {/* Navigation */}
-        <div className="mb-8">
-          <Link href={`/${locale}`} className="text-pink-600 hover:text-pink-800 flex items-center gap-2">
-            {getLocalizedText(locale, 'back_home')}
-          </Link>
-        </div>
 
         {/* Signup Form */}
         <div className="bg-white rounded-lg shadow-lg p-8">
@@ -366,6 +394,24 @@ export default function SignupForm({ locale }: SignupFormProps) {
                   required
                 />
               </div>
+            </div>
+
+            {/* Language Selection */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                {getLocalizedText(locale, 'language')} *
+              </label>
+              <select
+                name="selectedLocale"
+                value={formData.selectedLocale}
+                onChange={(e) => setFormData(prev => ({ ...prev, selectedLocale: e.target.value }))}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500"
+                required
+              >
+                <option value="en">{getLocalizedText(locale, 'english')}</option>
+                <option value="fr">{getLocalizedText(locale, 'french')}</option>
+                <option value="es">{getLocalizedText(locale, 'spanish')}</option>
+              </select>
             </div>
 
             {/* Email */}

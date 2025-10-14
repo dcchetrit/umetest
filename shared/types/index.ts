@@ -30,15 +30,26 @@ export interface ThemeConfig {
 
 export interface Guest {
   id: string;
-  name: string;
+  firstName: string;
+  lastName: string;
   email?: string;
   phone?: string;
   address?: Address;
   groupId: string;
-  tags: string[];
-  rsvp: RSVPResponse;
-  createdAt: Date;
-  updatedAt: Date;
+  categories: string[]; // Categories like "Child Friend", "Family", etc.
+  events: string[]; // Event names this guest is invited to
+  guestType: 'Adult' | 'Child';
+  isMainGuest: boolean;
+  parentGuestId?: string; // For children or sub-guests
+  subGuests?: string[]; // Array of sub-guest IDs for main guests
+  totalAdults: number;
+  totalChildren: number;
+  totalGuests: number;
+  rsvp?: RSVPResponse;
+  inviteToken?: string; // Unique token for personalized invites (legacy)
+  inviteLink?: string; // Full personalized invite link
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 export interface Address {
@@ -50,9 +61,8 @@ export interface Address {
 }
 
 export interface RSVPResponse {
-  status: 'pending' | 'accepted' | 'declined' | 'maybe';
+  status: 'pending' | 'accepted' | 'declined';
   events: { [eventId: string]: boolean }; // Which events they're attending
-  dietaryRestrictions?: string;
   mealChoice?: string;
   plusOnes: PlusOne[];
   comments?: string;
@@ -61,7 +71,6 @@ export interface RSVPResponse {
 
 export interface PlusOne {
   name: string;
-  dietaryRestrictions?: string;
   mealChoice?: string;
 }
 
@@ -162,6 +171,12 @@ export interface Analytics {
     declined: number;
     pending: number;
   };
-  eventStats: { [eventId: string]: number };
+  eventStats: { 
+    [eventId: string]: {
+      attending: number;
+      absent: number;
+      total: number;
+    }
+  };
   lastUpdated: Date;
 }

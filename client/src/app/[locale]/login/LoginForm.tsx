@@ -66,7 +66,7 @@ export default function LoginForm({ locale }: LoginFormProps) {
 
     try {
       await authService.signIn(email, password);
-      router.push(`/${locale}/app/dashboard`);
+      router.push(`/${locale}/dashboard`);
     } catch (error: any) {
       setError(error.message || getLocalizedText(locale, 'error_occurred'));
     } finally {
@@ -78,12 +78,6 @@ export default function LoginForm({ locale }: LoginFormProps) {
   return (
     <div className="min-h-screen bg-gradient-to-br from-pink-50 to-purple-50 flex items-center justify-center">
       <div className="max-w-md w-full mx-4">
-        {/* Navigation */}
-        <div className="mb-8">
-          <Link href={`/${locale}`} className="text-pink-600 hover:text-pink-800 flex items-center gap-2">
-            {getLocalizedText(locale, 'back_home')}
-          </Link>
-        </div>
 
         {/* Login Form */}
         <div className="bg-white rounded-lg shadow-lg p-8">

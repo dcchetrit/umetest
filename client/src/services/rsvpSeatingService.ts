@@ -116,7 +116,7 @@ export class RSVPSeatingService {
     for (const eventName of eventNames) {
       try {
         // Get seating arrangement for this event
-        const seatingDoc = await getDoc(doc(db, 'couples', this.coupleId, 'seating', eventName));
+        const seatingDoc = await getDoc(doc(db, 'couples', this.coupleId, 'seating-arrangements', eventName));
         
         if (seatingDoc.exists()) {
           const seatingData = seatingDoc.data() as SeatingArrangement;
@@ -219,7 +219,7 @@ export class RSVPSeatingService {
       });
 
       // Update seating arrangement
-      const seatingRef = doc(db, 'couples', this.coupleId, 'seating', eventName);
+      const seatingRef = doc(db, 'couples', this.coupleId, 'seating-arrangements', eventName);
       const seatingDoc = await transaction.get(seatingRef);
       
       if (seatingDoc.exists()) {
@@ -269,7 +269,7 @@ export class RSVPSeatingService {
    * Remove guest from a specific event's seating
    */
   private async removeGuestFromEvent(guestId: string, eventName: string): Promise<void> {
-    const seatingRef = doc(db, 'couples', this.coupleId, 'seating', eventName);
+    const seatingRef = doc(db, 'couples', this.coupleId, 'seating-arrangements', eventName);
     const seatingDoc = await getDoc(seatingRef);
     
     if (seatingDoc.exists()) {
@@ -296,7 +296,7 @@ export class RSVPSeatingService {
     completionRate: number;
   }> {
     try {
-      const seatingQuery = query(collection(db, 'couples', this.coupleId, 'seating'));
+      const seatingQuery = query(collection(db, 'couples', this.coupleId, 'seating-arrangements'));
       const seatingSnapshot = await getDocs(seatingQuery);
       
       let totalSeats = 0;

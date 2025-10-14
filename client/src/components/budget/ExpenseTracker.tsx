@@ -170,7 +170,7 @@ export default function ExpenseTracker({
       vendorName: expense.vendorName,
       quotedPrice: expense.quotedPrice.toString(),
       amountPaid: expense.amountPaid.toString(),
-      paymentDueDate: expense.paymentDueDate?.toISOString().split('T')[0] || '',
+      paymentDueDate: expense.paymentDueDate ? (expense.paymentDueDate instanceof Date ? expense.paymentDueDate.toISOString().split('T')[0] : new Date(expense.paymentDueDate).toISOString().split('T')[0]) : '',
       paymentStatus: expense.paymentStatus,
       notes: expense.notes || ''
     });
@@ -387,7 +387,7 @@ export default function ExpenseTracker({
                       <div>Quoted: <span className="font-medium">${expense.quotedPrice.toLocaleString()}</span></div>
                       <div>Paid: <span className="font-medium">${expense.amountPaid.toLocaleString()}</span></div>
                       {expense.paymentDueDate && (
-                        <div>Due: <span className="font-medium">{new Date(expense.paymentDueDate).toLocaleDateString()}</span></div>
+                        <div>Due: <span className="font-medium">{(expense.paymentDueDate instanceof Date ? expense.paymentDueDate : new Date(expense.paymentDueDate)).toLocaleDateString()}</span></div>
                       )}
                     </div>
                     

@@ -253,31 +253,24 @@ async function getBudgetStats(coupleId: string) {
   try {
     // Get budget data from existing budget service and payment reminder stats
     const { createBudgetTasksService } = await import('./budgetTasksService');
+    const { getBudgetSummary } = await import('./budgetService');
     const budgetTasksService = createBudgetTasksService(coupleId);
     
-    const coupleDoc = await getDoc(doc(db, 'couples', coupleId));
-    const coupleData = coupleDoc.exists() ? coupleDoc.data() : {};
+    // Get correct budget calculations from budget service
+    const budgetSummary = await getBudgetSummary(coupleId);
     
-    // Default values
-    let totalForecast = 0;
-    let totalAllocated = 0;
-    let totalSpent = 0;
-    
-    // Try to get budget data (this will depend on your budget implementation)
-    const budgetQuery = query(collection(db, 'couples', coupleId, 'budget'));
-    const budgetSnapshot = await getDocs(budgetQuery);
-    
-    budgetSnapshot.forEach((doc) => {
-      const budgetItem = doc.data();
-      totalForecast += budgetItem.forecasted || 0;
-      totalAllocated += budgetItem.allocated || 0;
-      totalSpent += budgetItem.spent || 0;
-    });
+    // Use correct calculations:
+    // - totalSpent = sum of payments made (from categoryExpenses.totalPaid)
+    // - totalAllocated = sum of ALL payments (made + due + overdue) from totalAllocated
+    // - remainingFunds = available funds - total spent
+    const totalForecast = budgetSummary.totalAllocated; // This is the forecasted amount
+    const totalAllocated = budgetSummary.totalAllocated; // Sum of ALL payments (made + due + overdue)
+    const totalSpent = budgetSummary.totalSpent;         // Sum of payments made
     
     // Get payment reminder stats for better budget health calculation
     const paymentStats = await budgetTasksService.getPaymentReminderStats();
     
-    const remainingFunds = totalAllocated - totalSpent;
+    const remainingFunds = budgetSummary.remainingFunds; // Available funds - total spent
     const spendingRate = totalAllocated > 0 ? (totalSpent / totalAllocated) * 100 : 0;
     
     let budgetHealth: 'healthy' | 'warning' | 'critical' = 'healthy';
@@ -306,6 +299,9 @@ async function getBudgetStats(coupleId: string) {
       remainingFunds,
       budgetHealth,
       spendingRate: Math.round(spendingRate),
+      monthlySpending: 0, // Could be calculated if needed
+      projectedOverrun: Math.max(0, totalSpent - totalAllocated),
+      categoriesOverBudget: 0, // Would need to calculate from category data
       paymentReminders: paymentStats,
       forecastBaseline: forecastInsights,
       benchmarkInsights
@@ -319,6 +315,9 @@ async function getBudgetStats(coupleId: string) {
       remainingFunds: 0,
       budgetHealth: 'healthy' as const,
       spendingRate: 0,
+      monthlySpending: 0,
+      projectedOverrun: 0,
+      categoriesOverBudget: 0,
       paymentReminders: {
         totalReminders: 0,
         upcomingPayments: 0,
@@ -973,7 +972,7 @@ async function getLastCollectionUpdate(coupleId: string, collectionName: string)
     if (!snapshot.empty) {
       const doc = snapshot.docs[0];
       const data = doc.data();
-      return data.updatedAt?.toDate() || new Date();
+      return data.updatedAt?.toDate ? data.updatedAt.toDate() : (data.updatedAt || new Date());
     }
     
     return new Date(0); // Return epoch if no documents found

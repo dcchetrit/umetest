@@ -3,8 +3,8 @@
 import { useState, useEffect } from 'react';
 
 interface NavigationStyleSelectorProps {
-  value: 'top' | 'side' | 'overlay';
-  onChange: (value: 'top' | 'side' | 'overlay') => void;
+  value: 'top';
+  onChange: (value: 'top') => void;
   colors: {
     primary: string;
     secondary: string;
@@ -15,7 +15,7 @@ interface NavigationStyleSelectorProps {
 }
 
 interface NavigationStyle {
-  id: 'top' | 'side' | 'overlay';
+  id: 'top';
   name: string;
   description: string;
   preview: React.ReactNode;
@@ -23,14 +23,14 @@ interface NavigationStyle {
 }
 
 export default function NavigationStyleSelector({ value, onChange, colors }: NavigationStyleSelectorProps) {
-  const [selectedStyle, setSelectedStyle] = useState<'top' | 'side' | 'overlay'>(value);
+  const [selectedStyle, setSelectedStyle] = useState<'top'>(value);
 
   // Sync with parent value changes
   useEffect(() => {
     setSelectedStyle(value);
   }, [value]);
 
-  const handleStyleChange = (styleId: 'top' | 'side' | 'overlay') => {
+  const handleStyleChange = (styleId: 'top') => {
     setSelectedStyle(styleId);
     onChange(styleId);
   };
@@ -63,66 +63,6 @@ export default function NavigationStyleSelector({ value, onChange, colors }: Nav
           </div>
         </div>
       )
-    },
-    {
-      id: 'side',
-      name: 'Side Navigation',
-      description: 'Elegant sidebar navigation for a unique layout',
-      features: ['Distinctive design', 'More space for content', 'Modern aesthetic', 'Desktop optimized'],
-      preview: (
-        <div className="w-full h-24 bg-gray-50 rounded-lg border-2 border-gray-200 overflow-hidden flex">
-          <div 
-            className="w-8 h-full flex flex-col justify-start items-center py-2 space-y-2"
-            style={{ backgroundColor: colors.primary }}
-          >
-            <div className="w-4 h-1 bg-white bg-opacity-80 rounded"></div>
-            <div className="flex flex-col space-y-1">
-              {['H', 'S', 'R', 'C'].map((item, index) => (
-                <div key={index} className="w-4 h-4 bg-white bg-opacity-70 rounded-sm flex items-center justify-center text-xs" style={{ color: colors.primary }}>
-                  {item}
-                </div>
-              ))}
-            </div>
-          </div>
-          <div className="flex-1 p-3">
-            <div className="w-full h-2 bg-gray-300 rounded mb-2"></div>
-            <div className="w-3/4 h-2 bg-gray-200 rounded mb-2"></div>
-            <div className="w-1/2 h-2 bg-gray-200 rounded"></div>
-          </div>
-        </div>
-      )
-    },
-    {
-      id: 'overlay',
-      name: 'Overlay Navigation',
-      description: 'Full-screen overlay navigation with dramatic effect',
-      features: ['Dramatic presentation', 'Full attention to menu', 'Modern interaction', 'Immersive experience'],
-      preview: (
-        <div className="w-full h-24 bg-gray-50 rounded-lg border-2 border-gray-200 overflow-hidden relative">
-          <div className="w-full h-full p-3">
-            <div className="w-full h-2 bg-gray-200 rounded mb-2"></div>
-            <div className="w-3/4 h-2 bg-gray-200 rounded"></div>
-          </div>
-          <div 
-            className="absolute inset-0 bg-opacity-90 flex items-center justify-center"
-            style={{ backgroundColor: colors.primary }}
-          >
-            <div className="text-center space-y-3">
-              <div className="w-3 h-3 bg-white rounded-full mx-auto mb-4"></div>
-              {['HOME', 'STORY', 'GALLERY', 'RSVP'].map((item, index) => (
-                <div key={index} className="text-white text-xs font-light tracking-widest">
-                  {item}
-                </div>
-              ))}
-            </div>
-          </div>
-          <div className="absolute top-2 right-2 flex flex-col space-y-1">
-            <div className="w-4 h-0.5 bg-white bg-opacity-90"></div>
-            <div className="w-4 h-0.5 bg-white bg-opacity-90"></div>
-            <div className="w-4 h-0.5 bg-white bg-opacity-90"></div>
-          </div>
-        </div>
-      )
     }
   ];
 
@@ -135,7 +75,7 @@ export default function NavigationStyleSelector({ value, onChange, colors }: Nav
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 gap-6">
         {navigationStyles.map((style) => (
           <div key={style.id} className="space-y-4">
             <div 

@@ -50,13 +50,16 @@ export async function getTasks(coupleId: string): Promise<Task[]> {
     const q = query(tasksRef, orderBy('createdAt', 'desc'));
     const snapshot = await getDocs(q);
     
-    return snapshot.docs.map(doc => ({
-      id: doc.id,
-      ...doc.data(),
-      createdAt: doc.data().createdAt?.toDate() || new Date(),
-      updatedAt: doc.data().updatedAt?.toDate() || new Date(),
-      dueDate: doc.data().dueDate?.toDate()
-    })) as Task[];
+    return snapshot.docs.map(doc => {
+      const data = doc.data();
+      return {
+        id: doc.id,
+        ...data,
+        createdAt: data.createdAt?.toDate ? data.createdAt.toDate() : (data.createdAt || new Date()),
+        updatedAt: data.updatedAt?.toDate ? data.updatedAt.toDate() : (data.updatedAt || new Date()),
+        dueDate: data.dueDate?.toDate ? data.dueDate.toDate() : data.dueDate
+      };
+    }) as Task[];
   } catch (error) {
     console.error('Error fetching tasks:', error);
     return [];
@@ -73,9 +76,9 @@ export async function getTask(coupleId: string, taskId: string): Promise<Task | 
       return {
         id: taskDoc.id,
         ...data,
-        createdAt: data.createdAt?.toDate() || new Date(),
-        updatedAt: data.updatedAt?.toDate() || new Date(),
-        dueDate: data.dueDate?.toDate()
+        createdAt: data.createdAt?.toDate ? data.createdAt.toDate() : (data.createdAt || new Date()),
+        updatedAt: data.updatedAt?.toDate ? data.updatedAt.toDate() : (data.updatedAt || new Date()),
+        dueDate: data.dueDate?.toDate ? data.dueDate.toDate() : data.dueDate
       } as Task;
     }
     
@@ -154,13 +157,16 @@ export async function getTasksByCategory(coupleId: string, category: string): Pr
     );
     const snapshot = await getDocs(q);
     
-    return snapshot.docs.map(doc => ({
-      id: doc.id,
-      ...doc.data(),
-      createdAt: doc.data().createdAt?.toDate() || new Date(),
-      updatedAt: doc.data().updatedAt?.toDate() || new Date(),
-      dueDate: doc.data().dueDate?.toDate()
-    })) as Task[];
+    return snapshot.docs.map(doc => {
+      const data = doc.data();
+      return {
+        id: doc.id,
+        ...data,
+        createdAt: data.createdAt?.toDate ? data.createdAt.toDate() : (data.createdAt || new Date()),
+        updatedAt: data.updatedAt?.toDate ? data.updatedAt.toDate() : (data.updatedAt || new Date()),
+        dueDate: data.dueDate?.toDate ? data.dueDate.toDate() : data.dueDate
+      };
+    }) as Task[];
   } catch (error) {
     console.error('Error fetching tasks by category:', error);
     return [];
@@ -177,13 +183,16 @@ export async function getTasksByStatus(coupleId: string, status: Task['status'])
     );
     const snapshot = await getDocs(q);
     
-    return snapshot.docs.map(doc => ({
-      id: doc.id,
-      ...doc.data(),
-      createdAt: doc.data().createdAt?.toDate() || new Date(),
-      updatedAt: doc.data().updatedAt?.toDate() || new Date(),
-      dueDate: doc.data().dueDate?.toDate()
-    })) as Task[];
+    return snapshot.docs.map(doc => {
+      const data = doc.data();
+      return {
+        id: doc.id,
+        ...data,
+        createdAt: data.createdAt?.toDate ? data.createdAt.toDate() : (data.createdAt || new Date()),
+        updatedAt: data.updatedAt?.toDate ? data.updatedAt.toDate() : (data.updatedAt || new Date()),
+        dueDate: data.dueDate?.toDate ? data.dueDate.toDate() : data.dueDate
+      };
+    }) as Task[];
   } catch (error) {
     console.error('Error fetching tasks by status:', error);
     return [];
@@ -245,8 +254,13 @@ export async function getWeddingDate(coupleId: string): Promise<Date | null> {
 export async function saveWeddingDate(coupleId: string, weddingDate: Date): Promise<void> {
   try {
     const coupleRef = doc(db, COUPLES_COLLECTION, coupleId);
+    
+    // Ensure the date is at 3:00 PM local time
+    const adjustedDate = new Date(weddingDate);
+    adjustedDate.setHours(15, 0, 0, 0); // Set to 3:00 PM
+    
     await updateDoc(coupleRef, {
-      weddingDate: Timestamp.fromDate(weddingDate),
+      weddingDate: Timestamp.fromDate(adjustedDate),
       updatedAt: Timestamp.fromDate(new Date())
     });
   } catch (error) {

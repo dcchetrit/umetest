@@ -1,22 +1,26 @@
 'use client';
 
 import { useState } from 'react';
-import { Guest, Group } from '@ume/shared';
+import { Guest, Group, FirestoreService } from '@ume/shared';
 import { useTranslations } from 'next-intl';
 
 interface GuestCardProps {
   guest: Guest;
   groups: Group[];
+  coupleId: string;
+  coupleSlug: string;
   onUpdate: (guestId: string, data: Partial<Guest>) => void;
   onDelete: (guestId: string) => void;
 }
 
-export default function GuestCard({ guest, groups, onUpdate, onDelete }: GuestCardProps) {
+export default function GuestCard({ guest, groups, coupleId, coupleSlug, onUpdate, onDelete }: GuestCardProps) {
   const t = useTranslations('guests');
   const tRSVP = useTranslations('guests.rsvp');
   const tCommon = useTranslations('common');
   const [isEditing, setIsEditing] = useState(false);
   const [editData, setEditData] = useState(guest);
+  const [isGeneratingToken, setIsGeneratingToken] = useState(false);
+  const [showInviteLink, setShowInviteLink] = useState(false);
 
   const group = groups.find(g => g.id === guest.groupId);
   
@@ -44,6 +48,38 @@ export default function GuestCard({ guest, groups, onUpdate, onDelete }: GuestCa
       ? [...editData.tags, tag]
       : editData.tags.filter(t => t !== tag);
     setEditData({ ...editData, tags: newTags });
+  };
+
+  const generateInviteToken = async () => {
+    if (isGeneratingToken) return;
+    
+    setIsGeneratingToken(true);
+    try {
+      const token = await FirestoreService.generateGuestToken(coupleId, guest.id);
+      onUpdate(guest.id, { inviteToken: token });
+    } catch (error) {
+      console.error('Error generating token:', error);
+      alert('Failed to generate invite link');
+    } finally {
+      setIsGeneratingToken(false);
+    }
+  };
+
+  const getInviteLink = () => {
+    if (!guest.inviteToken) return '';
+    const baseUrl = window.location.origin;
+    return `${baseUrl}/invite/en/${coupleSlug}/${guest.inviteToken}`;
+  };
+
+  const copyInviteLink = async () => {
+    const link = getInviteLink();
+    try {
+      await navigator.clipboard.writeText(link);
+      alert('Invite link copied to clipboard!');
+    } catch (error) {
+      console.error('Failed to copy link:', error);
+      alert('Failed to copy link');
+    }
   };
 
   const commonTags = ['Vegetarian', 'Vegan', 'Plus One', 'Kids Table', 'Close Friend', 'Family', 'Single'];
@@ -125,7 +161,7 @@ export default function GuestCard({ guest, groups, onUpdate, onDelete }: GuestCa
   return (
     <div className="bg-white border border-gray-200 rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow">
       <div className="flex justify-between items-start mb-3">
-        <h3 className="font-semibold text-gray-900">{guest.name}</h3>
+        <h3 className="font-semibold text-gray-900">{guest.firstName}</h3>
         <div className="flex gap-1">
           <button
             onClick={() => setIsEditing(true)}
@@ -197,6 +233,44 @@ export default function GuestCard({ guest, groups, onUpdate, onDelete }: GuestCa
           {t('rsvp_submitted')}: {new Date(guest.rsvp.submittedAt).toLocaleDateString()}
         </div>
       )}
+
+      {/* Invite Link Section */}
+      <div className="mt-3 pt-3 border-t border-gray-200">
+        <div className="flex items-center justify-between">
+          <span className="text-xs font-medium text-gray-700">Invite Link</span>
+          {guest.inviteToken ? (
+            <div className="flex gap-2">
+              <button
+                onClick={() => setShowInviteLink(!showInviteLink)}
+                className="text-xs text-blue-600 hover:text-blue-800"
+              >
+                {showInviteLink ? 'Hide' : 'Show'}
+              </button>
+              <button
+                onClick={copyInviteLink}
+                className="text-xs text-green-600 hover:text-green-800"
+              >
+                Copy
+              </button>
+            </div>
+          ) : (
+            <button
+              onClick={generateInviteToken}
+              disabled={isGeneratingToken}
+              className="text-xs text-purple-600 hover:text-purple-800 disabled:opacity-50"
+            >
+              {isGeneratingToken ? 'Generating...' : 'Generate'}
+            </button>
+          )}
+        </div>
+        
+        {guest.inviteToken && showInviteLink && (
+          <div className="mt-2 p-2 bg-gray-50 rounded text-xs break-all">
+            <div className="text-gray-600 mb-1">Personal invite link:</div>
+            <div className="text-blue-600 font-mono">{getInviteLink()}</div>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

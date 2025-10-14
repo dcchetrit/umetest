@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { db } from '@ume/shared';
-import { doc, setDoc, collection, addDoc } from 'firebase/firestore';
+import { doc, setDoc, collection, addDoc, Timestamp } from 'firebase/firestore';
 import Link from 'next/link';
 
 
@@ -59,8 +59,8 @@ export default function AdminPanel({ locale }: AdminPanelProps) {
           rsvpMode: "token",
           timezone: "America/Los_Angeles"
         },
-        createdAt: new Date(),
-        updatedAt: new Date()
+        createdAt: Timestamp.fromDate(new Date()),
+        updatedAt: Timestamp.fromDate(new Date())
       };
 
       await setDoc(doc(db, 'couples', user.uid), coupleData);
@@ -80,11 +80,11 @@ export default function AdminPanel({ locale }: AdminPanelProps) {
             events: {},
             dietaryRestrictions: "None",
             comments: "So excited for your special day!",
-            submittedAt: new Date('2024-04-01T10:00:00'),
+            submittedAt: Timestamp.fromDate(new Date('2024-04-01T10:00:00')),
             plusOnes: []
           },
-          createdAt: new Date(),
-          updatedAt: new Date()
+          createdAt: Timestamp.fromDate(new Date()),
+          updatedAt: Timestamp.fromDate(new Date())
         },
         {
           name: "Michael Johnson",
@@ -97,8 +97,8 @@ export default function AdminPanel({ locale }: AdminPanelProps) {
             events: {},
             plusOnes: []
           },
-          createdAt: new Date(),
-          updatedAt: new Date()
+          createdAt: Timestamp.fromDate(new Date()),
+          updatedAt: Timestamp.fromDate(new Date())
         },
         {
           name: "Sarah Williams",
@@ -110,11 +110,11 @@ export default function AdminPanel({ locale }: AdminPanelProps) {
             status: "declined",
             events: {},
             comments: "Unfortunately can't make it, but wishing you both the best!",
-            submittedAt: new Date('2024-04-15T14:30:00'),
+            submittedAt: Timestamp.fromDate(new Date('2024-04-15T14:30:00')),
             plusOnes: []
           },
-          createdAt: new Date(),
-          updatedAt: new Date()
+          createdAt: Timestamp.fromDate(new Date()),
+          updatedAt: Timestamp.fromDate(new Date())
         },
         {
           name: "David & Emma Brown",
@@ -126,11 +126,11 @@ export default function AdminPanel({ locale }: AdminPanelProps) {
             status: "accepted",
             events: {},
             dietaryRestrictions: "Emma is vegetarian",
-            submittedAt: new Date('2024-04-10T16:45:00'),
+            submittedAt: Timestamp.fromDate(new Date('2024-04-10T16:45:00')),
             plusOnes: []
           },
-          createdAt: new Date(),
-          updatedAt: new Date()
+          createdAt: Timestamp.fromDate(new Date()),
+          updatedAt: Timestamp.fromDate(new Date())
         }
       ];
 
@@ -147,27 +147,27 @@ export default function AdminPanel({ locale }: AdminPanelProps) {
           description: "Find and book a professional wedding photographer",
           status: "completed",
           priority: "high",
-          dueDate: new Date('2024-03-15T00:00:00'),
-          createdAt: new Date(),
-          updatedAt: new Date()
+          dueDate: Timestamp.fromDate(new Date('2024-03-15T00:00:00')),
+          createdAt: Timestamp.fromDate(new Date()),
+          updatedAt: Timestamp.fromDate(new Date())
         },
         {
           title: "Choose wedding cake flavor",
           description: "Schedule cake tasting and choose final design",
           status: "in-progress",
           priority: "medium",
-          dueDate: new Date('2024-05-15T00:00:00'),
-          createdAt: new Date(),
-          updatedAt: new Date()
+          dueDate: Timestamp.fromDate(new Date('2024-05-15T00:00:00')),
+          createdAt: Timestamp.fromDate(new Date()),
+          updatedAt: Timestamp.fromDate(new Date())
         },
         {
           title: "Plan rehearsal dinner",
           description: "Book venue and plan menu for rehearsal dinner",
           status: "not-started",
           priority: "medium",
-          dueDate: new Date('2024-06-01T00:00:00'),
-          createdAt: new Date(),
-          updatedAt: new Date()
+          dueDate: Timestamp.fromDate(new Date('2024-06-01T00:00:00')),
+          createdAt: Timestamp.fromDate(new Date()),
+          updatedAt: Timestamp.fromDate(new Date())
         }
       ];
 
@@ -189,11 +189,6 @@ export default function AdminPanel({ locale }: AdminPanelProps) {
     <div className="min-h-screen bg-gray-50 p-8">
       <div className="max-w-4xl mx-auto">
         {/* Navigation */}
-        <div className="mb-8">
-          <Link href={`/${locale}`} className="text-blue-600 hover:text-blue-800">
-            ← Back to Home
-          </Link>
-        </div>
 
         <div className="bg-white rounded-lg shadow-lg p-8">
           <h1 className="text-2xl font-bold text-gray-900 mb-6">Admin Panel</h1>
@@ -240,10 +235,10 @@ export default function AdminPanel({ locale }: AdminPanelProps) {
           <div className="border-t pt-6 mt-8">
             <h2 className="text-xl font-semibold mb-4">Quick Links</h2>
             <div className="flex gap-4">
-              <Link href={`/${locale}/app/dashboard`} className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+              <Link href={`/${locale}/dashboard`} className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
                 View Dashboard
               </Link>
-              <Link href={`/${locale}/app/guests`} className="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700">
+              <Link href={`/${locale}/guests`} className="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700">
                 View Guests
               </Link>
             </div>

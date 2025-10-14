@@ -68,6 +68,9 @@ export interface BudgetSummary {
   totalSpent: number;
   remainingFunds: number;
   unallocatedFunds: number;
+  estimatedBudget: number;
+  remainingBudget: number;
+  isOverBudget: boolean;
 }
 
 export const DEFAULT_CATEGORIES: Omit<BudgetCategory, 'id'>[] = [
